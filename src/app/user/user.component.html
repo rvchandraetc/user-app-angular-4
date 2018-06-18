@@ -1,0 +1,120 @@
+<div class="cust_loader-bg" *ngIf="isLoading" style="z-index: 9999;">
+    <div class="cust_loader"></div>
+</div>
+<div class="blur-bg">
+  <div style="text-align:center">
+    <h1>
+      Welcome to {{ title }}!
+    </h1>
+  </div>
+</div>
+
+
+
+<h3 *ngIf="userIdToUpdate; else create"> 
+   Update User for Id: {{userIdToUpdate}}
+</h3>
+<ng-template #create>
+   <h3> Add new User </h3>
+</ng-template>
+
+<div>
+    <form [formGroup]="userForm" (ngSubmit)="onUserFormSubmit()">
+     <table>
+       <tr><td>Name</td><td><input formControlName="name">
+            <label *ngIf="userForm.get('name').invalid && processValidation" 
+            [ngClass] = "'error'"> Title is required. </label>
+        </td></tr>
+       <tr><td>DOB(dd/MM/YYYY)</td><td><input formControlName="date_of_birth">
+            <label *ngIf="userForm.get('date_of_birth').invalid && processValidation" [ngClass] = "'error'"> 
+              DOB is required. </label>
+     </td></tr>	
+
+     <tr><td>Email</td><td><input formControlName="email">
+      <label *ngIf="userForm.get('email').invalid && processValidation" 
+      [ngClass] = "'error'"> Email is required. </label>
+  </td></tr>
+
+ <tr><td>Github Address</td><td><input formControlName="github_address">
+      <label *ngIf="userForm.get('github_address').invalid && processValidation" [ngClass] = "'error'"> 
+        Github Address is required. </label>
+</td></tr>	
+
+<tr><td>Twitter Address</td><td><input formControlName="twitter_address">
+  <label *ngIf="userForm.get('twitter_address').invalid && processValidation" 
+  [ngClass] = "'error'"> Twitter Address is required. </label>
+</td></tr>
+<tr><td>City</td><td><input formControlName="city_of_residence">
+  <label *ngIf="userForm.get('city_of_residence').invalid && processValidation" [ngClass] = "'error'"> 
+    City  is required. </label>
+</td></tr>	
+
+<tr><td>Pincode</td><td><input formControlName="pincode">
+  <label *ngIf="userForm.get('pincode').invalid && processValidation" [ngClass] = "'error'"> 
+    Pincode  is required. </label>
+</td></tr>	
+
+
+       <tr><td colspan="2">
+         <button *ngIf="!userIdToUpdate">CREATE</button>  
+       <button *ngIf="userIdToUpdate">UPDATE</button>  
+         <button (click)="backToCreateArticle()" *ngIf="userIdToUpdate">Go Back</button>  
+     </td></tr>
+     </table>
+    </form> 
+    <br/>
+    <div *ngIf="statusCode; else processing">
+      <div *ngIf="statusCode === 201" [ngClass] = "'success'">
+         User added successfully.
+      </div>   
+      <div *ngIf="statusCode === 409" [ngClass] = "'success'">
+           User already exists.
+      </div>   	
+      <div *ngIf="statusCode === 200" [ngClass] = "'success'">
+           User updated successfully.
+      </div>   	      
+      <div *ngIf="statusCode === 204" [ngClass] = "'success'">
+           User deleted successfully.
+      </div>   	   
+      <div *ngIf="statusCode === 500" [ngClass] = "'error'">
+           Internal Server Error.
+      </div>	
+    </div>
+    <ng-template #processing>
+     <img *ngIf="requestProcessing" src="assets/images/loading.gif">
+    </ng-template>
+   </div>
+
+
+  
+ 
+<h3>User Details</h3>
+
+<table>
+  <tr>
+    <th><label>Name</label></th>
+    <th><label>DOB</label></th>
+    <th><label>Email</label></th>
+    <th><label>Github Address</label></th>
+    <th><label>Twitter Address</label></th>
+    <th><label>City</label></th>
+    <th><label>Pincode</label></th>
+    <th><label>Action</label></th>
+  </tr>
+
+  <tr *ngFor="let user of users">
+    <td>{{user.name}}</td>
+    <td>{{user.date_of_birth}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.github_address}}</td>
+    <td>{{user.twitter_address}}</td>
+    <td>{{user.city_of_residence}}</td>
+    <td>{{user.pincode}}</td>
+    <td><button type="button" (click)="loadUserToEdit(user.id)">Edit</button>
+    <button type="button" (click)="deleteUser(user.id)">Delete</button></td>
+  </tr>
+
+</table>
+
+
+

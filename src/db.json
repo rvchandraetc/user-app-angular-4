@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "name": "Mark Twain",
+      "date_of_birth": "22/09/1923",
+      "email": "mark@twain.com",
+      "github_address": "https://github.com/marktwain",
+      "twitter_address": "https://twitter.com/@marktwain",
+      "city_of_residence": "New York",
+      "pincode": "1234589",
+      "id": 1
+    },
+    {
+      "name": "ccxc",
+      "date_of_birth": "cxc",
+      "email": "cxc",
+      "github_address": "cxc",
+      "twitter_address": "cxc777",
+      "city_of_residence": "cxc",
+      "pincode": "cxchhh",
+      "id": 2
+    }
+  ]
+}
